@@ -369,7 +369,7 @@ impl Thread {
                     .iter()
                     .enumerate()
                     .map(|(i, tc)| ToolCall {
-                        id: format!("turn{}_{}", turn.turn_number, i),
+                        id: format!("t{:04x}{:04x}", turn.turn_number, i),
                         name: tc.name.clone(),
                         arguments: tc.parameters.clone(),
                     })
@@ -380,7 +380,7 @@ impl Thread {
 
                 // Individual tool result messages, truncated to limit context size.
                 for (i, tc) in turn.tool_calls.iter().enumerate() {
-                    let call_id = format!("turn{}_{}", turn.turn_number, i);
+                    let call_id = format!("t{:04x}{:04x}", turn.turn_number, i);
                     let content = if let Some(ref err) = tc.error {
                         // .error already contains the full error text;
                         // pass through without wrapping to avoid double-prefix.
